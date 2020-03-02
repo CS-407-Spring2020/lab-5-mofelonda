@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    static String usernameKey = "username";
 
     public void loginClick(View view) {
         EditText nameField = findViewById(R.id.nameField);
@@ -29,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences sharedPreferences = getSharedPreferences("c.sakshi.lab5", Context.MODE_PRIVATE);
+        String usernameKey = "username";
 
         if (!sharedPreferences.getString(usernameKey, "").equals("")) {
             sharedPreferences.getString(usernameKey, "");
