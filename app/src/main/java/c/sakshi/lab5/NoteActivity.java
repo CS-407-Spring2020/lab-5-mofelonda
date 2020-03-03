@@ -19,16 +19,14 @@ public class NoteActivity extends AppCompatActivity {
 
     int noteID = -1;
     EditText noteEditor;
+    SQLiteDatabase sqLiteDatabase;
+    DBHelper dbHelper;
+
 
     public void saveClick(View view) {
-        noteEditor = findViewById(R.id.noteEditor);
         String content = noteEditor.getText().toString();
-        Context context = getApplicationContext();
-        SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase("notes", Context.MODE_PRIVATE, null);
-        DBHelper dbHelper = new DBHelper(sqLiteDatabase);
         SharedPreferences sharedPreferences = getSharedPreferences("c.sakshi.lab5", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("username", "");
-        //TODO save info to db?
         String title;
         DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
         String date = dateFormat.format(new Date());
@@ -50,6 +48,9 @@ public class NoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
+
+        sqLiteDatabase = getApplicationContext().openOrCreateDatabase("notes", Context.MODE_PRIVATE, null);
+        dbHelper = new DBHelper(sqLiteDatabase);
 
         noteEditor = findViewById(R.id.noteEditor);
         Intent intent = getIntent();
